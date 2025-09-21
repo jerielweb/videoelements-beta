@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Accede a Video Elements - Inicia sesión o regístrate en nuestra plataforma de gestión multimedia. Gestiona tus videos favoritos de forma segura y organizada.">
+    <meta name="keywords" content="login, registro, video elements, acceso, cuenta, multimedia, videos, plataforma">
+    <meta name="author" content="Video Elements">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://videoelements.com/form.html">
+    <meta property="og:title" content="Video Elements | Acceso y Registro">
+    <meta property="og:description" content="Accede a Video Elements - Inicia sesión o regístrate en nuestra plataforma de gestión multimedia.">
+    <meta property="og:image" content="/src/assets/favicon/icon_custom.png">
+    <meta property="og:site_name" content="Video Elements">
+    <meta property="og:locale" content="es_ES">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://videoelements.com/form.html">
+    <meta property="twitter:title" content="Video Elements | Acceso y Registro">
+    <meta property="twitter:description" content="Accede a Video Elements - Inicia sesión o regístrate en nuestra plataforma de gestión multimedia.">
+    <meta property="twitter:image" content="/src/assets/favicon/icon_custom.png">
+
+    <title>Video Elements | Acceso y Registro</title>
+    <link rel="stylesheet" href="/src/styles/form.css">
+    <link rel="shortcut icon" href="/src/assets/favicon/favicon.png" type="image/x-icon">
+    <link rel="canonical" href="https://videoelements.com/form.html">
+    
+    
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html" aria-label="Video Elements - Volver al inicio">
+                <img src="/src/assets/favicon/icon_light.png" alt="Video Elements - Logo principal" class="logo-index">
+            </a>
+        </div>
+        <nav class="nav-bar">
+            <ul class="nav-menu">
+                <a id="ingreso" href="index.html" data-lang="nav-home">Inicio</a>
+                <a href="#lang" id="lang-button" class="lang-toggle">
+                    <img src="/src/assets/icons/language.svg" alt="Cambiar idioma" id="lang-icon">
+                    <span id="lang-text" data-lang="nav-lang">Español</span>
+                </a>
+            </ul>                
+        </nav>
+        <div class="menu-toggle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </header>
+
+
+    <main class="form-container">
+        <div class="form">
+            <section class="log-in active">
+                <div class="logo-banner">
+                    <h1 id="login-title" data-lang="login-title">¡Bienvenido de vuelta!</h1>
+                    <img src="/src/assets/favicon/icon_custom.png" alt="Video Elements - Logo de la plataforma" id="logo-banner">
+                </div>
+                <div class="text-top">
+                    <p data-lang="login-subtitle">Inicia sesión para acceder a todos sus recursos.</p>
+                    <p><span data-lang="login-no-account">¿No tiene una cuenta?</span> <a href="#sing-up" id="sing-up" data-lang="login-register-link">Registrate</a></p>
+                </div>
+                <form action="/login" method="post" role="form" aria-labelledby="login-title">
+                    <div class="labels">
+                        <img id="form-icon-label-log" src="/src/assets/icons/person.svg">
+                        <input type="text" name="user" placeholder="Usuario" id="login-user" data-lang="login-user-placeholder" required aria-describedby="user-help">
+                        <img id="form-icon-label-log" src="/src/assets/icons/lock.svg">
+                        <input type="password" placeholder="Contraseña" name="password" id="login-password" data-lang="login-password-placeholder" required aria-describedby="password-help">
+                        <img src="" alt="" class="visibility">
+                    </div>
+                    <div class="cookie">
+                        <p id="cookies"><span data-lang="login-cookies">Al iniciar sesión aceptas los</span><a href="" data-lang="login-cookies-link"> Uso de Cookies</a> y los<a href="https://policies.google.com/terms" data-lang="login-terms-link"> Términos de Servicio</a> de google.</p>
+                    </div>
+                    <div class="btn">
+                        <button type="submit" data-lang="login-submit">Ingresar</button>
+                        <p><span data-lang="login-forgot">¿Olvidaste tu contraseña?</span> <a id="sing-up" data-lang="login-restore">Restaurar</a></p>
+                    </div>
+                </form>
+            </section>
+    
+            <section class="sing-up none">
+                <div class="logo-banner">
+                    <h1 id="register-title" data-lang="register-title">¡Te doy la Bienvenida!</h1>
+                    <img src="/src/assets/favicon/icon_custom.png" alt="Video Elements - Logo de la plataforma" id="logo-banner">
+                </div>
+
+                <div class="text-top">
+                    <p data-lang="register-subtitle">Crea una cuenta para acceder a todos sus recursos.</p>
+                    <p><span data-lang="register-have-account">¿Ya tienes una cuenta?</span> <a href="#log-in" id="log-in" data-lang="register-login-link">Iniciar Sesión</a></p>
+                </div>
+
+                <form action="/register" method="post" role="form" aria-labelledby="register-title">
+                    <div class="labels">
+                        <img id="form-icon-label-log" src="/src/assets/icons/person.svg">
+                        <input type="text" name="user" placeholder="Usuario" id="register-user" data-lang="register-user-placeholder" required aria-describedby="user-help">
+                        <img id="form-icon-label-log" src="/src/assets/icons/mail.svg">
+                        <input type="email" name="email" placeholder="Correo" id="register-email" data-lang="register-email-placeholder" required aria-describedby="email-help">
+                        <img id="form-icon-label-log" src="/src/assets/icons/lock.svg">
+                        <input type="password" placeholder="Contraseña" name="password" id="register-password" data-lang="register-password-placeholder" required aria-describedby="password-help">
+                    </div>
+
+                    <div class="cookie">
+                        <p id="cookies"><span data-lang="register-cookies">Al registrarte aceptas los</span><a href="" data-lang="register-cookies-link"> Uso de Cookies</a> y los<a href="https://policies.google.com/terms" data-lang="register-terms-link"> Términos de Servicio</a> de google.</p>
+                    </div>
+
+                    <div class="btn">
+                        <button type="submit" data-lang="register-submit">Registrar</button>
+                        <p><span data-lang="register-email-issue">¿Tu correo no funciona?</span> <a href="" id="sing-up" data-lang="register-verify">Verificar</a></p>
+                    </div>
+                </form>
+            </section>        
+        </div>
+    </main>
+    <script src="/src/js/nav.js"></script>
+    <script src="/src/js/form.js"></script>
+    <script src="/src/js/lang-form.js"></script>
+</body>
+</html>
