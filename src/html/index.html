@@ -42,13 +42,20 @@
 <body>
     <header>
         <div class="logo">
-            <a href="/" aria-label="Video Elements - Ir al inicio">
+            <a href="index.html" aria-label="Video Elements - Ir al inicio">
                 <img src="../assets/favicon/icon_light.png" alt="Video Elements - Logo principal" class="logo-index">
             </a>
         </div>
-            <nav class="nav-bar">
-                <ul class="nav-menu">
-                <a id="ingreso" href="form.html"><img src="../assets/icons/login.svg" alt="Log-in" id="login-icon"> Ingresar</a>
+        <nav class="nav-bar">
+            <ul class="nav-menu">
+                <!-- Botón de Ingresar (visible solo para usuarios no autenticados) -->
+                <a id="ingreso" href="form.html" data-guest-only><img src="../assets/icons/login.svg" alt="Log-in" id="login-icon"> Ingresar</a>
+                
+                <!-- Elementos para usuarios autenticados -->
+                <div data-auth-required style="display: none;">
+                    <a href="#" data-logout><img src="../assets/icons/logout.svg" alt="" id="out"> Cerrar Sesión</a>
+                </div>
+                
                 <a href="">Favoritos</a>
                 <a href="">Obtenidos</a>                
             </ul>                
@@ -63,8 +70,20 @@
         <section class="hero-section" aria-labelledby="hero-title">
             <h1 id="hero-title">Bienvenido a Video Elements</h1>
             <p>Descubre, organiza y disfruta de tus videos favoritos en una plataforma moderna y fácil de usar.</p>
+            
+            <!-- Panel de información del usuario (solo visible para usuarios autenticados) -->
+            <div class="user-info-panel" data-auth-required style="display: none;">
+                <h2>¡Hola, <span data-user-info="username"></span>!</h2>
+                <div class="user-details">
+                    <p><strong>Usuario:</strong> <span data-user-info="username"></span></p>
+                    <p><strong>Email:</strong> <span data-user-info="email"></span></p>
+                    <p><strong>Miembro desde:</strong> <span data-user-info="created-at"></span></p>
+                    <p><strong>Último acceso:</strong> <span data-user-info="last-login"></span></p>
+                </div>
+            </div>
         </section>
     </main>
     <script src="../js/nav.js"></script>
+    <script src="../js/auth.js"></script>
 </body>
 </html>

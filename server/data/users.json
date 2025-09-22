@@ -1,0 +1,32 @@
+[
+  {
+    "id": "75353f23-0970-483a-bd21-7184e61494b4",
+    "username": "testuser",
+    "email": "test@example.com",
+    "password": "740de25d61f496c62f0ae01cd34b9ba6f01ec9dd7f926dc9efb26ea03c552ebb21449eb09ccfe2e20542e14501b1e5c75385d8d0e41b70a62184d20afe534063",
+    "salt": "1c43882718aac9a3e04129e57dac4b17",
+    "createdAt": "2025-09-22T14:00:51.152Z",
+    "lastLogin": "2025-09-22T14:01:00.641Z",
+    "isActive": true
+  },
+  {
+    "id": "bd553156-a5ea-4896-9e90-e579b565dfa9",
+    "username": "Jeriel",
+    "email": "jerielweb@outlook.com",
+    "password": "9e4889160a95f229f3469202aad3e53e309045b401edb94bc530d78da844376b2b371769b7bb31ad31fb443736a6b57b5a6d7f36fca12ff2c86f12e744efe5d6",
+    "salt": "896a8b70730ce8238339ca72345afe92",
+    "createdAt": "2025-09-22T14:42:44.431Z",
+    "lastLogin": null,
+    "isActive": true
+  },
+  {
+    "id": "8a5dfd15-10ae-496e-9a73-b495aee4077f",
+    "username": "Jaleel",
+    "email": "jerielbeckford@test.es",
+    "password": "879ebfd149273cc267e626b9cbb687b3197c7b2c51614b1ccf1143f3c201e891eff0d20cf499456dd7c53dd76dc87274eba13d05fd212b66cc8b4a4a59b1f8fe",
+    "salt": "1f41717eaa2c1d8eea7c0cc64fd238bc",
+    "createdAt": "2025-09-22T14:54:19.566Z",
+    "lastLogin": "2025-09-22T17:42:04.064Z",
+    "isActive": true
+  }
+]

@@ -1,4 +1,202 @@
-// Butons help
+// Configuración de la API
+// Forzamos el uso del servidor backend en 3000 para evitar live preview en 3001
+const API_BASE_URL = 'http://localhost:3000';
+
+// Utilidades para manejo de tokens
+class TokenManager {
+    static setToken(token) {
+        localStorage.setItem('videoelements_token', token);
+    }
+    
+    static getToken() {
+        return localStorage.getItem('videoelements_token');
+    }
+    
+    static removeToken() {
+        localStorage.removeItem('videoelements_token');
+    }
+    
+    static isAuthenticated() {
+        return !!this.getToken();
+    }
+}
+
+// Utilidades para mostrar mensajes
+class MessageManager {
+    static showMessage(message, type = 'error') {
+        // Remover mensajes anteriores
+        const existingMessage = document.querySelector('.api-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+        
+        // Crear nuevo mensaje
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `api-message ${type}`;
+        messageDiv.textContent = message;
+        
+        // Estilos del mensaje
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            z-index: 10000;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease-out;
+        `;
+        
+        if (type === 'error') {
+            messageDiv.style.backgroundColor = '#e74c3c';
+        } else if (type === 'success') {
+            messageDiv.style.backgroundColor = '#27ae60';
+        } else {
+            messageDiv.style.backgroundColor = '#3498db';
+        }
+        
+        // Agregar animación CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        document.body.appendChild(messageDiv);
+        
+        // Auto-remover después de 5 segundos
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => {
+                    if (messageDiv.parentNode) {
+                        messageDiv.remove();
+                    }
+                }, 300);
+            }
+        }, 5000);
+    }
+    
+    static showLoading(form, isLoading = true) {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (isLoading) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Cargando...';
+            submitBtn.style.opacity = '0.7';
+        } else {
+            submitBtn.disabled = false;
+            submitBtn.textContent = submitBtn.dataset.originalText || 'Enviar';
+            submitBtn.style.opacity = '1';
+        }
+    }
+}
+
+// Clase para manejo de autenticación
+class AuthManager {
+    static async register(userData) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData)
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                TokenManager.setToken(data.data.token);
+                MessageManager.showMessage('¡Registro exitoso! Bienvenido a Video Elements.', 'success');
+                
+                // Redirigir al usuario después del registro exitoso
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+                
+                return data;
+            } else {
+                throw new Error(data.message || 'Error en el registro');
+            }
+        } catch (error) {
+            console.error('Error en registro:', error);
+            console.error('Datos enviados:', userData);
+            MessageManager.showMessage(error.message || 'Error al registrarse');
+            throw error;
+        }
+    }
+    
+    static async login(credentials) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(credentials)
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                TokenManager.setToken(data.data.token);
+                MessageManager.showMessage('¡Bienvenido de vuelta!', 'success');
+                
+                // Redirigir al usuario después del login exitoso
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+                
+                return data;
+            } else {
+                throw new Error(data.message || 'Error en el login');
+            }
+        } catch (error) {
+            console.error('Error en login:', error);
+            MessageManager.showMessage(error.message || 'Error al iniciar sesión');
+            throw error;
+        }
+    }
+    
+    static async verifyToken() {
+        const token = TokenManager.getToken();
+        if (!token) return false;
+        
+        try {
+            const response = await fetch(`${API_BASE_URL}/verify-token`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            const data = await response.json();
+            return data.success;
+        } catch (error) {
+            console.error('Error verificando token:', error);
+            TokenManager.removeToken();
+            return false;
+        }
+    }
+    
+    static logout() {
+        TokenManager.removeToken();
+        MessageManager.showMessage('Sesión cerrada exitosamente', 'info');
+        window.location.href = 'form.html';
+    }
+}
+
+// Buttons help
 document.addEventListener('DOMContentLoaded', function() {
     const loginSection = document.querySelector('.log-in')
     const signupSection = document.querySelector('.sing-up')
@@ -30,6 +228,73 @@ document.addEventListener('DOMContentLoaded', function() {
         loginButton.addEventListener('click', function(e) {
             e.preventDefault()
             showLoginForm()
+        });
+    }
+
+    // Guardar texto original de los botones
+    const submitButtons = document.querySelectorAll('button[type="submit"]');
+    submitButtons.forEach(btn => {
+        btn.dataset.originalText = btn.textContent;
+    });
+
+    // Manejo del formulario de registro
+    const registerForm = document.querySelector('form[action="/register"]');
+    if (registerForm) {
+        registerForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            MessageManager.showLoading(registerForm, true);
+            
+            const formData = new FormData(registerForm);
+            const userData = {
+                username: formData.get('user'),
+                email: formData.get('email'),
+                password: formData.get('password')
+            };
+            
+            console.log('Datos del formulario:', userData);
+            
+            try {
+                await AuthManager.register(userData);
+            } catch (error) {
+                console.error('Error en registro:', error);
+            } finally {
+                MessageManager.showLoading(registerForm, false);
+            }
+        });
+    }
+
+    // Manejo del formulario de login
+    const loginForm = document.querySelector('form[action="/login"]');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            MessageManager.showLoading(loginForm, true);
+            
+            const formData = new FormData(loginForm);
+            const credentials = {
+                username: formData.get('user'),
+                password: formData.get('password')
+            };
+            
+            try {
+                await AuthManager.login(credentials);
+            } catch (error) {
+                console.error('Error en login:', error);
+            } finally {
+                MessageManager.showLoading(loginForm, false);
+            }
+        });
+    }
+
+    // Verificar si el usuario ya está autenticado
+    if (TokenManager.isAuthenticated()) {
+        AuthManager.verifyToken().then(isValid => {
+            if (isValid) {
+                // Usuario ya autenticado, redirigir al inicio
+                window.location.href = 'index.html';
+            }
         });
     }
 });

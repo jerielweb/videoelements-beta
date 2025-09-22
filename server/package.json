@@ -1,0 +1,23 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Servidor de autenticación seguro para Video Elements",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server-complete.js",
+    "dev": "node server-complete.js",
+    "express": "node server.js",
+    "simple": "node server-simple.js"
+  },
+  "keywords": ["authentication", "express", "jwt", "security"],
+  "author": "Video Elements",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

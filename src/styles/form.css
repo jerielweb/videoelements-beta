@@ -76,7 +76,7 @@ header {
 }
 nav {
     display: flex;
-    height: 100%;
+    width: 300px;
     justify-content: space-between;
     align-items: center;
     margin: 0 1em 0 1em;
@@ -143,8 +143,8 @@ section {
     text-align: center;
     display: flex;
     flex-direction: column;
+    width: auto;
     max-width: 450px;
-    min-width: 100px;
     height: 780px;
 }
 .form {
